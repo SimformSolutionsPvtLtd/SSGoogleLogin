@@ -10,22 +10,18 @@ import UIKit
 import GoogleSignIn
 
 //private let clientID = "your_client_id"
-typealias UserDataComplition = (_  userData: UserData?, _ error: Error? ) -> ()
 
-class SSGoogleManager: NSObject {
+
+public class SSGoogleManager: NSObject {
     let googleManager = GIDSignIn.sharedInstance()
     var userDataBlock:UserDataComplition?
     var userDidDisconnectWithBlock:UserDataComplition?
     
-    struct Static {
-        static let instance = SSGoogleManager()
-    }
+    public typealias UserDataComplition = (_  userData: UserData?, _ error: Error? ) -> ()
     
-    class var shared: SSGoogleManager {
-        return Static.instance
-    }
+    public static let manager = SSGoogleManager()
     
-    func logInWithGoogle(clientId: String,complitionBlock:@escaping UserDataComplition,didDisconnectBlock:@escaping UserDataComplition)  {
+    public func logInWithGoogle(clientId: String,complitionBlock:@escaping UserDataComplition,didDisconnectBlock:@escaping UserDataComplition)  {
         userDataBlock = complitionBlock
         userDidDisconnectWithBlock = didDisconnectBlock
         googleManager?.clientID = clientId
@@ -33,14 +29,14 @@ class SSGoogleManager: NSObject {
         googleManager?.signIn()
     }
 
-    func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    public func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return (googleManager?.handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]))!
     }
 }
 
 extension SSGoogleManager:GIDSignInDelegate {
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("\(error.localizedDescription)")
             if let block = self.userDataBlock {
@@ -62,7 +58,7 @@ extension SSGoogleManager:GIDSignInDelegate {
         }
     }
     
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+    public func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("\(error.localizedDescription)")
             if let block = self.userDidDisconnectWithBlock {

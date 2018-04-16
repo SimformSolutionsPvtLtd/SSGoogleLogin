@@ -19,8 +19,8 @@ class ViewController: UIViewController {
         
         super.viewDidAppear(animated)
         
-        LoginManager.shared.googleManager?.uiDelegate = self
-        LoginManager.shared.logInWithGoogle(clientId: "158839743101-fglvu614nbop867an33vqdfjh3eoe8b0.apps.googleusercontent.com", complitionBlock: { (userData, error) in
+        SSGoogleManager.manager.googleManager?.uiDelegate = self
+        SSGoogleManager.manager.logInWithGoogle(clientId: "158839743101-fglvu614nbop867an33vqdfjh3eoe8b0.apps.googleusercontent.com", complitionBlock: { (userData, error) in
             if error == nil {
                 print(userData ?? "")
             } else {

@@ -34,7 +34,7 @@ Import two files in your project and it's done
 
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation:
     Any) -> Bool {
-        return  SSGoogleManager.shared.facebookUrlConfiguration(application, open: url,
+        return  SSGoogleManager.manager.facebookUrlConfiguration(application, open: url,
         sourceApplication:
         sourceApplication, annotation: annotation)
     }
@@ -43,7 +43,7 @@ Import two files in your project and it's done
 #####example 1(you can get default data when not passing any argument)
 
 ```swift
-SSGoogleManager.shared.logInWithGoogle(clientId: <Client_ID (StringFormat)> ,controller: self, complitionBlock: { (userData, error) in
+SSGoogleManager.manager.logInWithGoogle(clientId: <Client_ID (StringFormat)> ,controller: self, complitionBlock: { (userData, error) in
     if error == nil {
         print(userData ?? "")
     } else {

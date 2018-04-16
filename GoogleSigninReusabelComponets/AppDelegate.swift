@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return LoginManager.shared.handelOpenUrl(app:app, url:url, options:options)
+        return SSGoogleManager.manager.handelOpenUrl(app:app, url:url, options:options)
     }
 }
 
