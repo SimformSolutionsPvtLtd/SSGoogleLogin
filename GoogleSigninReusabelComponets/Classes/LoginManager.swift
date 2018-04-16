@@ -12,16 +12,16 @@ import GoogleSignIn
 //private let clientID = "your_client_id"
 typealias UserDataComplition = (_  userData: UserData?, _ error: Error? ) -> ()
 
-class LoginManager: NSObject {
+class SSGoogleManager: NSObject {
     let googleManager = GIDSignIn.sharedInstance()
     var userDataBlock:UserDataComplition?
     var userDidDisconnectWithBlock:UserDataComplition?
     
     struct Static {
-        static let instance = LoginManager()
+        static let instance = SSGoogleManager()
     }
     
-    class var shared: LoginManager {
+    class var shared: SSGoogleManager {
         return Static.instance
     }
     
@@ -38,7 +38,7 @@ class LoginManager: NSObject {
     }
 }
 
-extension LoginManager:GIDSignInDelegate {
+extension SSGoogleManager:GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
