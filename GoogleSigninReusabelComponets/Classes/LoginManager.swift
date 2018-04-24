@@ -13,7 +13,7 @@ import GoogleSignIn
 
 
 public class SSGoogleManager: NSObject {
-    let googleManager = GIDSignIn.sharedInstance()
+    public let googleManager = GIDSignIn.sharedInstance()
     var userDataBlock:UserDataComplition?
     var userDidDisconnectWithBlock:UserDataComplition?
     
