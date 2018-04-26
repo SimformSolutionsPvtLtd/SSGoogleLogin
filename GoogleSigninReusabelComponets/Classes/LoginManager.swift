@@ -50,7 +50,8 @@ extension SSGoogleManager:GIDSignInDelegate {
                 fullName: user.profile.name,
                 givenName: user.profile.givenName,
                 familyName: user.profile.familyName,
-                email: user.profile.email )
+                email: user.profile.email,
+                accessToken: user.authentication.accessToken)
             if let block = self.userDataBlock {
               block(data,nil)
             }
@@ -72,7 +73,8 @@ extension SSGoogleManager:GIDSignInDelegate {
                 fullName: user.profile.name,
                 givenName: user.profile.givenName,
                 familyName: user.profile.familyName,
-                email: user.profile.email )
+                email: user.profile.email,
+                accessToken: user.authentication.accessToken)
             if let block = self.userDidDisconnectWithBlock {
                 block(data,nil)
             }

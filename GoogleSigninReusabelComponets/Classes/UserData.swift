@@ -15,4 +15,5 @@ public struct UserData {
     public var givenName = ""
     public var familyName = ""
     public var email = ""
+    public var accessToken = ""
 }
