@@ -29,8 +29,8 @@ public class SSGoogleManager: NSObject {
         googleManager?.signIn()
     }
 
-    public func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        return (googleManager?.handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation]))!
+    public func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return (googleManager?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]))!
     }
 }
 
