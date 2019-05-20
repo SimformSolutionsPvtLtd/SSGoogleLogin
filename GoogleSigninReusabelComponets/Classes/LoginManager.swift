@@ -63,11 +63,10 @@ extension SSGoogleManager: GIDSignInDelegate {
              let data = UserData(
                 userId: user.userID,
                 idToken: user.authentication.idToken,
-                fullName: user.profile.name,
+                accessToken: user.authentication.accessToken, fullName: user.profile.name,
                 givenName: user.profile.givenName,
                 familyName: user.profile.familyName,
-                email: user.profile.email,
-                accessToken: user.authentication.accessToken)
+                email: user.profile.email)
             if let block = self.userDataBlock {
                 block(data, nil)
             }
@@ -85,11 +84,10 @@ extension SSGoogleManager: GIDSignInDelegate {
             let data = UserData(
                 userId: user.userID,
                 idToken: user.authentication.idToken,
-                fullName: user.profile.name,
+                accessToken: user.authentication.accessToken, fullName: user.profile.name,
                 givenName: user.profile.givenName,
                 familyName: user.profile.familyName,
-                email: user.profile.email,
-                accessToken: user.authentication.accessToken)
+                email: user.profile.email)
             if let block = self.userDidDisconnectWithBlock {
                 block(data, nil)
             }
