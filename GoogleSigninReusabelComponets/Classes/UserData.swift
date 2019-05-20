@@ -9,11 +9,11 @@
 import UIKit
 
 public struct UserData {
-    public var userId = ""
-    public var idToken = ""
-    public var fullName = ""
-    public var givenName = ""
-    public var familyName = ""
-    public var email = ""
-    public var accessToken = ""
+    public var userId: String?
+    public var idToken: String?
+    public var accessToken: String?
+    public var fullName: String?
+    public var givenName: String?
+    public var familyName: String?
+    public var email: String?
 }

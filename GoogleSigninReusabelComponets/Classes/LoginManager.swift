@@ -19,7 +19,22 @@ public class SSGoogleManager: NSObject {
     
     public typealias UserDataComplition = (_  userData: UserData?, _ error: Error? ) -> ()
     
-    public static let manager = SSGoogleManager()
+    fileprivate struct Static {
+        static let instance = SSGoogleManager()
+    }
+    
+    internal override init() {
+        super.init()
+    }
+    
+    // this is the Swift way to do singletons
+    public class var manager: SSGoogleManager {
+        return Static.instance
+    }
+    
+    public func signOut() {
+        googleManager?.signOut()
+    }
     
     public func logInWithGoogle(clientId: String,complitionBlock:@escaping UserDataComplition,didDisconnectBlock:@escaping UserDataComplition)  {
         userDataBlock = complitionBlock
@@ -34,13 +49,14 @@ public class SSGoogleManager: NSObject {
     }
 }
 
-extension SSGoogleManager:GIDSignInDelegate {
+// MARK: - GIDSignInDelegate
+extension SSGoogleManager: GIDSignInDelegate {
     
     public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print("\(error.localizedDescription)")
             if let block = self.userDataBlock {
-                block(nil,error)
+                block(nil, error)
             }
         } else {
             // Perform any operations on signed in user here.
@@ -53,9 +69,8 @@ extension SSGoogleManager:GIDSignInDelegate {
                 email: user.profile.email,
                 accessToken: user.authentication.accessToken)
             if let block = self.userDataBlock {
-              block(data,nil)
+                block(data, nil)
             }
-            
         }
     }
     
@@ -63,7 +78,7 @@ extension SSGoogleManager:GIDSignInDelegate {
         if let error = error {
             print("\(error.localizedDescription)")
             if let block = self.userDidDisconnectWithBlock {
-                block(nil,error)
+                block(nil, error)
             }
         } else {
             // Perform any operations on signed in user here.
@@ -76,10 +91,21 @@ extension SSGoogleManager:GIDSignInDelegate {
                 email: user.profile.email,
                 accessToken: user.authentication.accessToken)
             if let block = self.userDidDisconnectWithBlock {
-                block(data,nil)
+                block(data, nil)
             }
         }
     }
 }
 
-
+// MARK: - GIDSignInUIDelegate
+extension SSGoogleManager: GIDSignInUIDelegate {
+    
+    public func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+        
+    }
+    
+    public func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        
+    }
+    
+}
