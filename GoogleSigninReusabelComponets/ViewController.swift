@@ -11,44 +11,46 @@ import GoogleSignIn
 
 class ViewController: UIViewController {
 
+    let clientId = "158839743101-fglvu614nbop867an33vqdfjh3eoe8b0.apps.googleusercontent.com"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.performGoogleSignOut()
+        self.performGoogleSignIn()
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        
-        super.viewDidAppear(animated)
-        
+    
+    fileprivate func performGoogleSignOut() {
+        SSGoogleManager.manager.signOut()
+    }
+    
+    fileprivate func performGoogleSignIn() {
         SSGoogleManager.manager.googleManager?.uiDelegate = self
-        SSGoogleManager.manager.logInWithGoogle(clientId: "158839743101-fglvu614nbop867an33vqdfjh3eoe8b0.apps.googleusercontent.com", complitionBlock: { (userData, error) in
+        SSGoogleManager.manager.logInWithGoogle(clientId: clientId, complitionBlock: { (userData, error) in
             if error == nil {
                 print(userData ?? "")
             } else {
                 print(error?.localizedDescription ?? "")
             }
-        }) { (userData, error) in
+        }, didDisconnectBlock: { (userData, error) in
             if error == nil {
                 print(userData ?? "")
             } else {
                 print(error?.localizedDescription ?? "")
             }
-        }
+        })
+    }
+    
+}
+
+// MARK: - GIDSignInUIDelegate
+extension ViewController: GIDSignInUIDelegate {
+    
+    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        
     }
-
-
     
 }
-extension ViewController:GIDSignInUIDelegate {
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-
-    }
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-
-    }
-}
-

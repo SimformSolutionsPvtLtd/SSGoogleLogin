@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SSGoogleLogin'
-  s.version          = '1.0.5'
+  s.version          = '2.0.0'
   s.summary          = 'The Reusable Google Login Components for iOS is the easiest way to get data from Google.'
  
   s.description      = 'The Reusable Google Login Components for iOS is the easiest way to get data from Google.'
