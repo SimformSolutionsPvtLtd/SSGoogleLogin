@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
   s.source_files = 'GoogleSigninReusabelComponets/Classes/*.swift'
   s.static_framework = true
-  s.dependency 'GoogleSignIn', '>4.1'
+  s.dependency 'GoogleSignIn', '5.0.2'
 
   
 end

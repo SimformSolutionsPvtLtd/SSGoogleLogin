@@ -15,16 +15,21 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func btnSigninTapped(_ sender: Any) {
         self.performGoogleSignOut()
         self.performGoogleSignIn()
     }
+    
     
     fileprivate func performGoogleSignOut() {
         SSGoogleManager.manager.signOut()
     }
     
     fileprivate func performGoogleSignIn() {
-        SSGoogleManager.manager.googleManager?.uiDelegate = self
+        SSGoogleManager.manager.googleManager?.presentingViewController = self
+        SSGoogleManager.manager.googleManager?.delegate = self
         SSGoogleManager.manager.logInWithGoogle(clientId: clientId, complitionBlock: { (userData, error) in
             if error == nil {
                 print(userData ?? "")
@@ -42,15 +47,10 @@ class ViewController: UIViewController {
     
 }
 
-// MARK: - GIDSignInUIDelegate
-extension ViewController: GIDSignInUIDelegate {
-    
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+extension ViewController: GIDSignInDelegate {
+
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         
     }
-    
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        
-    }
-    
+
 }
