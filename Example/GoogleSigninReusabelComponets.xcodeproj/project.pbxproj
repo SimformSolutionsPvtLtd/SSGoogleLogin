@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C3158AE2063B76300720140 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0C3158AD2063B76300720140 /* README.md */; };
 		0CD5572F2060FF7900946F21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD5572E2060FF7900946F21 /* AppDelegate.swift */; };
 		0CD557312060FF7900946F21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD557302060FF7900946F21 /* ViewController.swift */; };
 		0CD557342060FF7900946F21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CD557322060FF7900946F21 /* Main.storyboard */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C3158AD2063B76300720140 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		0CD5572B2060FF7900946F21 /* GoogleSigninReusabelComponets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleSigninReusabelComponets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CD5572E2060FF7900946F21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CD557302060FF7900946F21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 				0CD557352060FF7900946F21 /* Assets.xcassets */,
 				0CD557372060FF7A00946F21 /* LaunchScreen.storyboard */,
 				0CD5573A2060FF7A00946F21 /* Info.plist */,
-				0C3158AD2063B76300720140 /* README.md */,
 			);
 			path = GoogleSigninReusabelComponets;
 			sourceTree = "<group>";
@@ -129,7 +126,6 @@
 				0CD557282060FF7900946F21 /* Frameworks */,
 				0CD557292060FF7900946F21 /* Resources */,
 				D2AE6A56295C4987514ECE92 /* [CP] Embed Pods Frameworks */,
-				0AD1E4BD8BADC9787F4CE4AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,7 +177,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CD557392060FF7A00946F21 /* LaunchScreen.storyboard in Resources */,
-				0C3158AE2063B76300720140 /* README.md in Resources */,
 				0CD557362060FF7900946F21 /* Assets.xcassets in Resources */,
 				0CD557342060FF7900946F21 /* Main.storyboard in Resources */,
 			);
@@ -190,24 +185,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0AD1E4BD8BADC9787F4CE4AB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GoogleSigninReusabelComponets/Pods-GoogleSigninReusabelComponets-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GoogleSigninReusabelComponets/Pods-GoogleSigninReusabelComponets-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		218D325F538E29D12D6B9465 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,13 +210,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-GoogleSigninReusabelComponets/Pods-GoogleSigninReusabelComponets-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleSignIn/GoogleSignIn.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleSignIn.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

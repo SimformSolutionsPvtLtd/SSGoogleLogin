@@ -12,9 +12,9 @@ Pod::Spec.new do |s|
  
   s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
-  s.source_files = 'GoogleSigninReusabelComponets/Classes/*.swift'
+  s.source_files = 'Sources/SSGoogleLogin/*.swift'
   s.static_framework = true
-  s.dependency 'GoogleSignIn', '>4.1'
+  s.dependency 'GoogleSignIn', '>6.2'
 
   
 end
