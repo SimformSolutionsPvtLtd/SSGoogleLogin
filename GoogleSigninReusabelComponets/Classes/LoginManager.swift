@@ -45,7 +45,7 @@ public class SSGoogleManager: NSObject {
     }
 
     public func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return (googleManager?.handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]))!
+        return (googleManager?.handle(url))!
     }
 }
 
@@ -93,17 +93,4 @@ extension SSGoogleManager: GIDSignInDelegate {
             }
         }
     }
-}
-
-// MARK: - GIDSignInUIDelegate
-extension SSGoogleManager: GIDSignInUIDelegate {
-    
-    public func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        
-    }
-    
-    public func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        
-    }
-    
 }
