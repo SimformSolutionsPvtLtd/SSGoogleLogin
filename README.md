@@ -10,8 +10,9 @@ The GoogleSigninReusabelComponets for iOS is the easiest way to get data  from G
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 7.3
+- iOS 11.2+
+- Xcode 14.3
+Note: For Xcode version lower than 14.3 use version 2.0.1
 
 ## Installation
 
@@ -34,13 +35,31 @@ Import two files in your project and it's done
 
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation:
     Any) -> Bool {
-        return  SSGoogleManager.manager.facebookUrlConfiguration(application, open: url,
-        sourceApplication:
-        sourceApplication, annotation: annotation)
+        return  SSGoogleManager.manager.handleOpenUrl(app: app, url: url)
+    }
+```
+##### For Version 3.0.0 (you can get default data when not passing any argument)
+
+```swift
+SSGoogleManager.manager.logInWithGoogle(clientId: <Client_ID (StringFormat)>, presenting: UIViewController) { result in
+    switch result {
+        case .success(let userData):
+            print(userData)
+        case .failure(let error):
+            print(error.localizedDescription)
+         }
+    } 
+    didDisconnectBlock: { result in
+    switch result {
+        case .success(let userData):
+            print(userData)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
 ```
 
-#####example 1(you can get default data when not passing any argument)
+##### For Version 2.0.1 (you can get default data when not passing any argument)
 
 ```swift
 SSGoogleManager.manager.logInWithGoogle(clientId: <Client_ID (StringFormat)> ,controller: self, complitionBlock: { (userData, error) in
