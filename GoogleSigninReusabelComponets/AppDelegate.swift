@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [: ]) -> Bool {
-        return SSGoogleManager.manager.handelOpenUrl(app: app, url: url, options: options)
+        return SSGoogleManager.manager.handleOpenUrl(app: app, url: url, options: options)
     }
     
 }
