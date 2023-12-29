@@ -28,29 +28,22 @@ class ViewController: UIViewController {
     }
     
     fileprivate func performGoogleSignIn() {
-        SSGoogleManager.manager.googleManager?.presentingViewController = self
-        SSGoogleManager.manager.googleManager?.delegate = self
-        SSGoogleManager.manager.logInWithGoogle(clientId: clientId, complitionBlock: { (userData, error) in
-            if error == nil {
-                print(userData ?? "")
-            } else {
-                print(error?.localizedDescription ?? "")
+        SSGoogleManager.manager.logInWithGoogle(clientId: clientId, presenting: self) { result in
+            switch result {
+            case .success(let userData):
+                print(userData)
+            case .failure(let error):
+                print(error.localizedDescription)
+                
             }
-        }, didDisconnectBlock: { (userData, error) in
-            if error == nil {
-                print(userData ?? "")
-            } else {
-                print(error?.localizedDescription ?? "")
+        } didDisconnectBlock: { result in
+            switch result {
+            case .success(let userData):
+                print(userData)
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-        })
+        }
     }
     
-}
-
-extension ViewController: GIDSignInDelegate {
-
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        
-    }
-
 }

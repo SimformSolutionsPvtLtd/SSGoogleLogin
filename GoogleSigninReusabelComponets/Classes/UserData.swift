@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 public struct UserData {
     public var userId: String?

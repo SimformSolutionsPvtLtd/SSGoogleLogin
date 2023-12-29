@@ -9,15 +9,14 @@
 import UIKit
 import GoogleSignIn
 
-//private let clientID = "your_client_id"
-
-
 public class SSGoogleManager: NSObject {
-    public let googleManager = GIDSignIn.sharedInstance()
-    var userDataBlock:UserDataComplition?
-    var userDidDisconnectWithBlock:UserDataComplition?
     
-    public typealias UserDataComplition = (_  userData: UserData?, _ error: Error? ) -> ()
+    public let googleManager = GIDSignIn.sharedInstance
+    var userDataBlock:UserDataCompletion?
+    var userDidDisconnectWithBlock:UserDataCompletion?
+    var signInConfig:GIDConfiguration?
+    
+    public typealias UserDataCompletion = (Result<UserData, Error>) -> ()
     
     fileprivate struct Static {
         static let instance = SSGoogleManager()
@@ -26,71 +25,51 @@ public class SSGoogleManager: NSObject {
     internal override init() {
         super.init()
     }
-    
     // this is the Swift way to do singletons
     public class var manager: SSGoogleManager {
         return Static.instance
     }
     
     public func signOut() {
-        googleManager?.signOut()
+        googleManager.signOut()
     }
     
-    public func logInWithGoogle(clientId: String,complitionBlock:@escaping UserDataComplition,didDisconnectBlock:@escaping UserDataComplition)  {
-        userDataBlock = complitionBlock
+    public func logInWithGoogle(clientId: String, 
+                                presenting: UIViewController,
+                                completionBlock: @escaping UserDataCompletion,
+                                didDisconnectBlock: @escaping UserDataCompletion) {
+        signInConfig = GIDConfiguration.init(clientID: clientId)
+        googleManager.configuration = signInConfig
+        userDataBlock = completionBlock
         userDidDisconnectWithBlock = didDisconnectBlock
-        googleManager?.clientID = clientId
-        googleManager?.delegate = self
-        googleManager?.signIn()
-    }
-
-    public func handelOpenUrl(app: UIApplication,url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return (googleManager?.handle(url))!
-    }
-}
-
-// MARK: - GIDSignInDelegate
-extension SSGoogleManager: GIDSignInDelegate {
-    
-    public func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-            if let block = self.userDataBlock {
-                block(nil, error)
-            }
-        } else {
-            // Perform any operations on signed in user here.
-             let data = UserData(
-                userId: user.userID,
-                idToken: user.authentication.idToken,
-                accessToken: user.authentication.accessToken, fullName: user.profile.name,
-                givenName: user.profile.givenName,
-                familyName: user.profile.familyName,
-                email: user.profile.email)
-            if let block = self.userDataBlock {
-                block(data, nil)
+        
+        googleManager.signIn(withPresenting: presenting) { googleUser, error in
+            if let error = error {
+                print("\(error.localizedDescription)")
+                if let block = self.userDataBlock {
+                    block(.failure(error))
+                }
+            } else {
+                var data = UserData()
+                if let signInUser = googleUser?.user {
+                    data.userId = signInUser.userID
+                    data.idToken = signInUser.idToken?.tokenString
+                    data.accessToken = signInUser.accessToken.tokenString
+                    data.fullName = signInUser.profile?.name
+                    data.givenName = signInUser.profile?.givenName
+                    data.familyName = signInUser.profile?.familyName
+                    data.email = signInUser.profile?.email
+                }
+                if let block = self.userDataBlock {
+                    block(.success(data))
+                }
             }
         }
     }
     
-    public func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-            if let block = self.userDidDisconnectWithBlock {
-                block(nil, error)
-            }
-        } else {
-            // Perform any operations on signed in user here.
-            let data = UserData(
-                userId: user.userID,
-                idToken: user.authentication.idToken,
-                accessToken: user.authentication.accessToken, fullName: user.profile.name,
-                givenName: user.profile.givenName,
-                familyName: user.profile.familyName,
-                email: user.profile.email)
-            if let block = self.userDidDisconnectWithBlock {
-                block(data, nil)
-            }
-        }
+    public func handleOpenUrl(app: UIApplication,url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var handled: Bool = false
+        handled = googleManager.handle(url)
+        return handled
     }
 }
